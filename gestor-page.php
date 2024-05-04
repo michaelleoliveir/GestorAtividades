@@ -1,3 +1,18 @@
+<?php
+
+require_once("./backend/database.php");
+
+$atividades = [];
+
+$sql = $conexao->query("SELECT * FROM tbl_atividade");
+
+if($sql->rowCount() > 0) {
+    $atividades = $sql->fetchAll(PDO::FETCH_ASSOC);
+    var_dump($atividades);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -72,74 +87,75 @@
                                     </div>
 
                                     <div class="container-fluid">
-                                        <div class="row content-center" id="cards-container">
-                                            <!-- CARTÃO -->
-                                            <div class="col-md-4 mb-4">
-                                                <div class="card h-100" style="border-radius: 10px;">
+                                        <div class="row content-center">
+                                            <?php foreach($atividades as $atividade): ?>
+                                                <!-- CARTÃO -->
+                                                <div class="col-md-4 mb-4">
+                                                    <div class="card h-100" style="border-radius: 10px;">
 
-                                                    <!-- Título -->
-                                                    <div class="card-header text-center" style="background-color: #0A2647; border-radius: 10px 10px 0px 0px;">
-                                                        <h4 class="m-0" style="color: aliceblue; padding: 5px;">
-                                                            Exercício Gerenciador</h4>
-                                                    </div>
+                                                        <!-- Título -->
+                                                        <div class="card-header text-center" style="background-color: #0A2647; border-radius: 10px 10px 0px 0px;">
+                                                            <h4 class="m-0" style="color: aliceblue; padding: 5px;">
+                                                                Exercício Gerenciador</h4>
+                                                        </div>
 
-                                                    <!-- descricao da atividade -->
-                                                    <div class="card-body">
-                                                        <p style="color: rgba(0, 0, 0, 0.466);">2022-04-05</p>
+                                                        <!-- descricao da atividade -->
+                                                        <div class="card-body">
+                                                            <p style="color: rgba(0, 0, 0, 0.466);">2022-04-05</p>
 
-                                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur
-                                                            adipisicing elit. Ratione, aperiam ex deleniti, quis
-                                                            provident iure nesciunt consectetur eligendi magnam vitae
-                                                            totam labore cupiditate. Laboriosam voluptatem fuga aliquid
-                                                            numquam, ipsa consectetur!</p>
+                                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur
+                                                                adipisicing elit. Ratione, aperiam ex deleniti, quis
+                                                                provident iure nesciunt consectetur eligendi magnam vitae
+                                                                totam labore cupiditate. Laboriosam voluptatem fuga aliquid
+                                                                numquam, ipsa consectetur!</p>
 
-                                                        <!-- botoes -->
-                                                        <div class="text-center" style="padding-top: 10px;">
-                                                            <button class="btn btn-danger"><i class="ri-close-circle-fill"></i></button>
-                                                            <button class="btn btn-success"><i class="ri-checkbox-circle-fill"></i></button>
-                                                            <button class="btn btn-primary"><i class="ri-edit-circle-fill"></i></button>
+                                                            <!-- botoes -->
+                                                            <div class="text-center" style="padding-top: 10px;">
+                                                                <button class="btn btn-danger"><i class="ri-close-circle-fill"></i></button>
+                                                                <button class="btn btn-success"><i class="ri-checkbox-circle-fill"></i></button>
+                                                                <button class="btn btn-primary"><i class="ri-edit-circle-fill"></i></button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- CARTÃO -->
-                                            <div class="col-md-4 mb-4">
-                                                <div class="card h-100" style="border-radius: 10px;">
+                                                <!-- CARTÃO -->
+                                                <div class="col-md-4 mb-4">
+                                                    <div class="card h-100" style="border-radius: 10px;">
 
-                                                    <!-- Título -->
-                                                    <div class="card-header text-center" style="background-color: #0A2647; border-radius: 10px 10px 0px 0px;">
-                                                        <h4 class="m-0" style="color: aliceblue; padding: 5px;">
-                                                            Exercício Gerenciador</h4>
-                                                    </div>
+                                                        <!-- Título -->
+                                                        <div class="card-header text-center" style="background-color: #0A2647; border-radius: 10px 10px 0px 0px;">
+                                                            <h4 class="m-0" style="color: aliceblue; padding: 5px;">
+                                                                Exercício Gerenciador</h4>
+                                                        </div>
 
-                                                    <!-- descricao da atividade -->
-                                                    <div class="card-body">
-                                                        <p style="color: rgba(0, 0, 0, 0.466);">2022-05-04</p>
+                                                        <!-- descricao da atividade -->
+                                                        <div class="card-body">
+                                                            <p style="color: rgba(0, 0, 0, 0.466);">2022-05-04</p>
 
-                                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur
-                                                            adipisicing elit. Ratione, aperiam ex deleniti, quis
-                                                            provident iure nesciunt consectetur eligendi magnam vitae
-                                                            totam labore cupiditate. Laboriosam voluptatem fuga aliquid
-                                                            numquam, ipsa consectetur!</p>
+                                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur
+                                                                adipisicing elit. Ratione, aperiam ex deleniti, quis
+                                                                provident iure nesciunt consectetur eligendi magnam vitae
+                                                                totam labore cupiditate. Laboriosam voluptatem fuga aliquid
+                                                                numquam, ipsa consectetur!</p>
 
-                                                        <!-- botoes -->
-                                                        <div class="text-center" style="padding-top: 10px;">
-                                                            <button class="btn btn-danger"><i class="ri-close-circle-fill"></i></button>
-                                                            <button class="btn btn-success"><i class="ri-checkbox-circle-fill"></i></button>
-                                                            <button class="btn btn-primary"><i class="ri-edit-circle-fill"></i></button>
+                                                            <!-- botoes -->
+                                                            <div class="text-center" style="padding-top: 10px;">
+                                                                <button class="btn btn-danger"><i class="ri-close-circle-fill"></i></button>
+                                                                <button class="btn btn-success"><i class="ri-checkbox-circle-fill"></i></button>
+                                                                <button class="btn btn-primary"><i class="ri-edit-circle-fill"></i></button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- ADICIONAR NOVA ATIVIDADE -->
-                                            <div class="col-md-4 mb-4">
-                                                <div class="card h-100 text-center justify-content-center" style="border-radius: 10px; font-size: 35px; color: #0A2647;">
-                                                    <i class="ri-add-large-fill" id="adicionar"></i>
+                                                <!-- ADICIONAR NOVA ATIVIDADE -->
+                                                <div class="col-md-4 mb-4">
+                                                    <div class="card h-100 text-center justify-content-center" style="border-radius: 10px; font-size: 35px; color: #0A2647;">
+                                                        <i class="ri-add-large-fill" id="adicionar"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-
+                                            <?php endforeach ?>
                                         </div>
                                     </div>
                                 </div>
