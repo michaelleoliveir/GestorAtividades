@@ -1,0 +1,38 @@
+.left-inner-addon {
+    position: relative;
+}
+
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+    color: #666;
+}
+    
+.left-inner-addon input.form-control {
+    padding-left: 30px;
+}
+
+.gradient-form {
+    height: 100vh; 
+}
+
+.custom-color {
+    color: #0a264777;
+}
+
+form [type="password"]{
+    background-color: #D9D9D9;
+}
+
+form [type="email"]{
+    background-color: #D9D9D9;
+}
+
+form [type="text"]{
+    background-color: #D9D9D9;
+}
+
+form [type="datetime"]{
+    background-color: #D9D9D9;
+}
