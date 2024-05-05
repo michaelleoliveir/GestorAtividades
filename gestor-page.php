@@ -1,18 +1,3 @@
-<?php
-
-require_once("./backend/database.php");
-
-$atividades = [];
-
-$sql = $conexao->query("SELECT * FROM tbl_atividade");
-
-if($sql->rowCount() > 0) {
-    $atividades = $sql->fetchAll(PDO::FETCH_ASSOC);
-    var_dump($atividades);
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -88,74 +73,44 @@ if($sql->rowCount() > 0) {
 
                                     <div class="container-fluid">
                                         <div class="row content-center">
-                                            <?php foreach($atividades as $atividade): ?>
-                                                <!-- CARTÃO -->
-                                                <div class="col-md-4 mb-4">
-                                                    <div class="card h-100" style="border-radius: 10px;">
+                                            <?php
+                                                require_once("./backend/get_atividades.php");
 
-                                                        <!-- Título -->
-                                                        <div class="card-header text-center" style="background-color: #0A2647; border-radius: 10px 10px 0px 0px;">
-                                                            <h4 class="m-0" style="color: aliceblue; padding: 5px;">
-                                                                Exercício Gerenciador</h4>
-                                                        </div>
+                                                if(!empty($atividades)) {
+                                                    foreach ($atividades as $atividade) {
+                                                        $atv_titulo = $atividade['ATV_TITULO'];
+                                                        $atv_descricao = $atividade['ATV_DESCRICAO'];
+                                                        $atv_criacao = $atividade['ATV_DT_CRIACAO'];
 
-                                                        <!-- descricao da atividade -->
-                                                        <div class="card-body">
-                                                            <p style="color: rgba(0, 0, 0, 0.466);">2022-04-05</p>
+                                                        echo "<div class='col-md-4 mb-4'>
+                                                                <div class='card h-100' style='border-radius: 10px;'>
+                                                                    <div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>
+                                                                        <h4 class='m-0' style='color: aliceblue; padding: 5px;'>
+                                                                            " . $atv_titulo . "
+                                                                        </h4>
+                                                                    </div>
 
-                                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit. Ratione, aperiam ex deleniti, quis
-                                                                provident iure nesciunt consectetur eligendi magnam vitae
-                                                                totam labore cupiditate. Laboriosam voluptatem fuga aliquid
-                                                                numquam, ipsa consectetur!</p>
-
-                                                            <!-- botoes -->
-                                                            <div class="text-center" style="padding-top: 10px;">
-                                                                <button class="btn btn-danger"><i class="ri-close-circle-fill"></i></button>
-                                                                <button class="btn btn-success"><i class="ri-checkbox-circle-fill"></i></button>
-                                                                <button class="btn btn-primary"><i class="ri-edit-circle-fill"></i></button>
+                                                                    <div class='card-body'>
+                                                                        <p style='color: rgba(0, 0, 0, 0.466);'>" . $atv_criacao . "</p>
+        
+                                                                        <p class='card-text'>" . $atv_descricao . "</p>
+        
+                                                                    <div class='text-center' style='padding-top: 10px;'>
+                                                                    <button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>
+                                                                    <button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>
+                                                                    <button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>"; }}
+                                            ?>
+
+                                            <!-- ADICIONAR NOVA ATIVIDADE -->
+                                            <div class="col-md-4 mb-4">
+                                                <div class="card h-100 text-center justify-content-center" style="border-radius: 10px; font-size: 35px; color: #0A2647;">
+                                                    <i class="ri-add-large-fill" id="adicionar"></i>
                                                 </div>
-
-                                                <!-- CARTÃO -->
-                                                <div class="col-md-4 mb-4">
-                                                    <div class="card h-100" style="border-radius: 10px;">
-
-                                                        <!-- Título -->
-                                                        <div class="card-header text-center" style="background-color: #0A2647; border-radius: 10px 10px 0px 0px;">
-                                                            <h4 class="m-0" style="color: aliceblue; padding: 5px;">
-                                                                Exercício Gerenciador</h4>
-                                                        </div>
-
-                                                        <!-- descricao da atividade -->
-                                                        <div class="card-body">
-                                                            <p style="color: rgba(0, 0, 0, 0.466);">2022-05-04</p>
-
-                                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit. Ratione, aperiam ex deleniti, quis
-                                                                provident iure nesciunt consectetur eligendi magnam vitae
-                                                                totam labore cupiditate. Laboriosam voluptatem fuga aliquid
-                                                                numquam, ipsa consectetur!</p>
-
-                                                            <!-- botoes -->
-                                                            <div class="text-center" style="padding-top: 10px;">
-                                                                <button class="btn btn-danger"><i class="ri-close-circle-fill"></i></button>
-                                                                <button class="btn btn-success"><i class="ri-checkbox-circle-fill"></i></button>
-                                                                <button class="btn btn-primary"><i class="ri-edit-circle-fill"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- ADICIONAR NOVA ATIVIDADE -->
-                                                <div class="col-md-4 mb-4">
-                                                    <div class="card h-100 text-center justify-content-center" style="border-radius: 10px; font-size: 35px; color: #0A2647;">
-                                                        <i class="ri-add-large-fill" id="adicionar"></i>
-                                                    </div>
-                                                </div>
-                                            <?php endforeach ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -195,28 +150,28 @@ if($sql->rowCount() > 0) {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-default" style="font-size: 14px; font-weight: 500;">Título</span>
                                 </div>
-                                <input type="text" id="titulo" name="titulo" class="form-control" aria-label="Titulo" aria-describedby="inputGroup-sizing-default" required>
+                                <input type="text" id="titulo" name="titulo" class="form-control" aria-label="Titulo" aria-describedby="inputGroup-sizing-default" required autocomplete="off">
                             </div>
                             <br>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-default" style="font-size: 14px; font-weight: 500;">Descrição</span>
                                 </div>
-                                <input type="text" id="descricao" name="descricao" class="form-control" aria-label="Descrição" aria-describedby="inputGroup-sizing-default" required>
+                                <input type="text" id="descricao" name="descricao" class="form-control" aria-label="Descrição" aria-describedby="inputGroup-sizing-default" required autocomplete="off">
                             </div>
                             <br>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-default" style="font-size: 14px; font-weight: 500;">Data de criação</span>
                                 </div>
-                                <input type="date" id="criacao" name="criacao" class="form-control" aria-label="Criação" aria-describedby="inputGroup-sizing-default" required>
+                                <input type="date" id="criacao" name="criacao" class="form-control" aria-label="Criação" aria-describedby="inputGroup-sizing-default" required autocomplete="off">
                             </div>
                             <br>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-default" style="font-size: 14px; font-weight: 500;">Data de conclusão</span>
                                 </div>
-                                <input type="date" id="conclusao" name="conclusao" class="form-control" aria-label="Conclusão" aria-describedby="inputGroup-sizing-default" required>
+                                <input type="date" id="conclusao" name="conclusao" class="form-control" aria-label="Conclusão" aria-describedby="inputGroup-sizing-default" required autocomplete="off">
                             </div>
                         </form>
                     </div>
