@@ -21,3 +21,26 @@ CREATE TABLE TBL_ATIVIDADE (
 );
 
 use gerenciador;
+
+
+
+
+
+
+
+<div class='col-md-4 mb-4'>
+    <div class='card h-100' style='border-radius: 10px;'>
+        <div class='card-header text-center' style='background-color: #2980e4; border-radius: 10px 10px 0px 0px;'>
+            <h4 class='m-0' style='color: aliceblue; padding: 5px;'></h4>
+        </div>
+        <div class='card-body'>
+            <p style='color: rgba(0, 0, 0, 0.466);'></p>
+            <p class='card-text'></p>
+                <div class='text-center' style='padding-top: 10px; padding-left: 5px;'>
+                    <button class='btn btn-danger' style="margin-right: 10px;"><i class='ri-close-circle-fill'></i></button>
+                    <button class='btn btn-success' style="margin-right: 10px;"><i class='ri-checkbox-circle-fill'></i></button>
+                    <button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>
+                </div>
+        </div>
+    </div>
+</div>

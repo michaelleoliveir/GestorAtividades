@@ -82,7 +82,7 @@
                                     </div>
 
                                     <div class="container-fluid">
-                                        <div class="row content-center">
+                                        <div class="content-center">
                                             <!-- ADICIONAR NOVA ATIVIDADE -->
                                             <div class="col-md-4 mb-4">
                                                 <div class="card h-100 text-center justify-content-center"
@@ -90,72 +90,12 @@
                                                     <i class="ri-add-large-fill" id="adicionar"></i>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            <!--  
-                                            <div class='col-md-4 mb-4'>
-                                                <div class='card h-100' style='border-radius: 10px;'>
-                                                    <div class='card-header text-center'
-                                                        style='background-color: #2980e4; border-radius: 10px 10px 0px 0px;'>
-                                                        <h4 class='m-0' style='color: aliceblue; padding: 5px;'></h4>
-                                                    </div>
-                                                    <div class='card-body'>
-                                                        <p style='color: rgba(0, 0, 0, 0.466);'></p>
-                                                        <p class='card-text'></p>
-                                                        <div class='text-center' style='padding-top: 10px; padding-left: 5px;'>
-                                                            <button class='btn btn-danger' style="margin-right: 10px;"><i
-                                                                    class='ri-close-circle-fill'></i></button>
-                                                            <button class='btn btn-success' style="margin-right: 10px;"><i
-                                                                    class='ri-checkbox-circle-fill'></i></button>
-                                                            <button class='btn btn-primary'><i
-                                                                    class='ri-edit-circle-fill'></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            -->
+                                    <div class="container-fluid">
+                                        <div class="row content-center" id="atividades">
 
-                                            <script>
-                                                $(document).ready(function () {
-                                                    $.ajax({
-                                                        method: "GET",
-                                                        url: "./backend/get_atividades.php",
-                                                        dataType: "json",
-                                                        success: function (response) {
-                                                            if (response.length > 0) {
-                                                                response.forEach(function (atividade) {
-                                                                    var atv_titulo = atividade.ATV_TITULO;
-                                                                    var atv_descricao = atividade.ATV_DESCRICAO;
-                                                                    var atv_criacao = atividade.ATV_DT_CRIACAO;
-
-                                                                    var cardHTML = "<div class='col-md-4 mb-4'>" +
-                                                                        "<div class='card h-100' style='border-radius: 10px;'>" +
-                                                                        "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
-                                                                        "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
-                                                                        "</div>" +
-                                                                        "<div class='card-body'>" +
-                                                                        "<p style='color: rgba(0, 0, 0, 0.466);'>" + atv_criacao + "</p>" +
-                                                                        "<p class='card-text'>" + atv_descricao + "</p>" +
-                                                                        "<div class='text-center' style='padding-top: 10px;'>" +
-                                                                        "<button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>" +
-                                                                        "<button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>" +
-                                                                        "<button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>" +
-                                                                        "</div>" +
-                                                                        "</div>" +
-                                                                        "</div>" +
-                                                                        "</div>";
-
-                                                                    $(".row.content-center").append(cardHTML);
-                                                                });
-                                                            } else {
-                                                                console.log("Não há atividades disponível")
-                                                            }
-                                                        },
-                                                        error: function (xhr, status, error) {
-                                                            console.error("Erro ao carregar as atividades: ", error);
-                                                        }
-                                                    })
-                                                })
-                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -276,14 +216,80 @@
 
         <script>
             $(document).ready(function () {
+
+                $.ajax({
+                    method: "GET",
+                    url: "./backend/get_atividades.php",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.length > 0) {
+                            response.forEach(function (atividades) {
+                                var atv_titulo = atividades.ATV_TITULO;
+                                var atv_descricao = atividades.ATV_DESCRICAO;
+                                var atv_criacao = atividades.ATV_DT_CRIACAO;
+
+                                var cardHTML = "<div class='col-md-4 mb-4' style='padding-top: 10px'>" +
+                                    "<div class='card h-100' style='border-radius: 10px;'>" +
+                                    "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
+                                    "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
+                                    "</div>" +
+                                    "<div class='card-body'>" +
+                                    "<p style='color: rgba(0, 0, 0, 0.466);'>" + atv_criacao + "</p>" +
+                                    "<p class='card-text'>" + atv_descricao + "</p>" +
+                                    "<div class='text-center' style='padding-top: 10px;'>" +
+                                    "<button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>" +
+                                    "<button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>" +
+                                    "<button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+
+                                $("#atividades").append(cardHTML);
+                            });
+                        } else {
+                            console.log("Não há atividades disponível")
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erro ao carregar as atividades: ", error);
+                    }
+                })
+
+                function adicionarAtividade(atividade) {
+                    var atv_titulo = atividades.ATV_TITULO;
+                    var atv_descricao = atividades.ATV_DESCRICAO;
+                    var atv_criacao = atividades.ATV_DT_CRIACAO;
+
+                    $("#atividades").append("<div class='col-md-4 mb-4'>" +
+                        "<div class='card h-100' style='border-radius: 10px;'>" +
+                        "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
+                        "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
+                        "</div>" +
+                        "<div class='card-body'>" +
+                        "<p style='color: rgba(0, 0, 0, 0.466);'>" + atv_criacao + "</p>" +
+                        "<p class='card-text'>" + atv_descricao + "</p>" +
+                        "<div class='text-center' style='padding-top: 10px;'>" +
+                        "<button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>" +
+                        "<button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>" +
+                        "<button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>");
+                }
+
+                //clicar no botão de créditos
                 $("#creditos").click(function () {
                     $("#creditosModal").modal('show');
                 });
 
+                //clicar no botão de adicionar nova atividade
                 $("#adicionar").click(function () {
                     $("#atividadesModal").modal('show');
                 });
 
+                //clicar no botão de criar nova atividade
                 $("#btn-criar").click(function () {
                     event.preventDefault();
 
@@ -304,11 +310,26 @@
                     }).done(function (response) {
                         if (response === "sucesso") {
                             $('#successModal').modal('show');
+
+                            $("#atividades").append("<div class='col-md-4 mb-4'>" +
+                                "<div class='card h-100' style='border-radius: 10px;'>" +
+                                "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
+                                "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + _titulo + "</h4>" +
+                                "</div>" +
+                                "<div class='card-body'>" +
+                                "<p style='color: rgba(0, 0, 0, 0.466);'>" + _criacao + "</p>" +
+                                "<p class='card-text'>" + _descricao + "</p>" +
+                                "<div class='text-center' style='padding-top: 10px;'>" +
+                                "<button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>" +
+                                "<button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>" +
+                                "<button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>");
                         } else {
                             $('#errorModal').modal('show');
                         }
-
-
                     }).fail(function (xhr, status, error) {
                         $('#errorModal').modal('show');
                     })
