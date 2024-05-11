@@ -2,10 +2,11 @@
 
 require_once("database.php");
 
-$sql = $conexao->query("SELECT * FROM tbl_atividade");
+$query = "SELECT * FROM tbl_atividade";
+$stmt = $conexao->prepare($query);
+$stmt->execute();
 
-if($sql && $sql->rowCount() > 0) {
-    while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-        $atividades[] = $row;
-    }
-}
+$atividades = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// retorna atividades como json
+echo json_encode($atividades);
