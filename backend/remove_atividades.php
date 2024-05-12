@@ -5,7 +5,6 @@ require_once("database.php");
 // Verificar se o ID da atividade foi enviado
 if(isset($_POST['id'])) {
     $idAtividade = $_POST['id'];
-    echo $idAtividade;
 
     $sql = "DELETE FROM tbl_atividade WHERE ATV_ID = :id";
 

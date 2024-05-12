@@ -183,6 +183,49 @@
             </div>
         </div>
 
+        <!-- modal para modificar atividades -->
+        <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header h4 justify-content-center"
+                        style="background-color: #0A2647;color: aliceblue; font-weight: 500;">
+                        Editar atividade
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"
+                                        style="font-size: 14px; font-weight: 500;">Título</span>
+                                </div>
+                                <input type="text" id="titulo-novo" name="titulo-novo" class="form-control"
+                                    aria-label="Titulo" aria-describedby="inputGroup-sizing-default" required
+                                    autocomplete="off">
+                            </div>
+                            <br>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"
+                                        style="font-size: 14px; font-weight: 500;">Descrição</span>
+                                </div>
+                                <input type="text" id="descricao-novo" name="descricao-novo" class="form-control"
+                                    aria-label="Descrição" aria-describedby="inputGroup-sizing-default" required
+                                    autocomplete="off">
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-cancelar" id="btn-cancelar" data-dismiss="modal"
+                            style="background-color: #0A2647; color: aliceblue; width: 80px;">Cancelar</button>
+
+                        <button type="button" class="btn btn-atualizar" id="btn-atualizar" data-dismiss="modal"
+                            style="background-color: #0A2647; color: aliceblue; width: 80px;">Atualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- modal que aparece caso os valores inseridos no login estejam errados -->
         <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
             aria-hidden="true">
@@ -233,6 +276,7 @@
         <script>
             $(document).ready(function () {
 
+                // função para criar os cards com base nos dados do banco
                 function carregarAtividade() {
                     $.ajax({
                         method: "GET",
@@ -257,7 +301,7 @@
                                         "<div class='text-center' style='padding-top: 30px;'>" +
                                         "<button class='btn btn-danger deletar' data-id='" + atv_id + "'><i class='ri-close-circle-fill'></i></button>" +
                                         "<button class='btn btn-success concluido'><i class='ri-checkbox-circle-fill'></i></button>" +
-                                        "<button class='btn btn-primary editar'><i class='ri-edit-circle-fill'></i></button>" +
+                                        "<button class='btn btn-primary editar' data-id='" + atv_id + "''><i class='ri-edit-circle-fill'></i></button>" +
                                         "</div>" +
                                         "</div>" +
                                         "</div>" +
@@ -318,7 +362,8 @@
                     })
                 });
 
-                $("#btn-cancelar").click(function () {
+                // clicar no botão de cancelar ao criar um novo card
+                $(document).on('click', '#btn-cancelar', function () {
                     $('#titulo').val('');
                     $('#descricao').val('');
                     $('#criacao').val('');
@@ -344,6 +389,44 @@
                         }
                     })
                 });
+
+                var idAtividade;
+
+                //para atualizar os cards
+                $(document).on('click', '.editar', function () {
+                    // Armazena o ID da atividade em uma variável
+                    idAtividade = $(this).data('id');
+                    console.log("ID da atividade: " + idAtividade);
+                    $('#editarModal').modal('show');
+                });
+
+                $('#btn-atualizar').click(function () {
+                    event.preventDefault();
+
+                    var _tituloNovo = $("#titulo-novo").val();
+                    var _descricaoNovo = $("#descricao-novo").val();
+
+                    $.ajax({
+                        method: "POST",
+                        url: "./backend/update_atividades.php",
+                        data: {
+                            tituloNovo: _tituloNovo,
+                            descricaoNovo: _descricaoNovo,
+                            id: idAtividade
+                        },
+                    }).done(function (response) {
+                        if (response.includes("sucesso")) {
+                            $('#successModal').modal('show');
+                            $('#atividades').empty();
+                            carregarAtividade();
+                        } else {
+                            $('#errorModal').modal('show');
+                        }
+                    }).fail(function (xhr, status, error) {
+                        $('#errorModal').modal('show');
+                    });
+                });
+
 
             })
         </script>
