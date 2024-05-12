@@ -184,6 +184,22 @@
         </div>
 
         <!-- modal que aparece caso os valores inseridos no login estejam errados -->
+        <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header h5 justify-content-center"
+                        style="background-color: #0A2647;color: #B9B5C4; font-weight: 600;">
+                        Exclusão bem sucedida
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorMessage">Atividade excluida com sucesso!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal que aparece caso os valores inseridos no login estejam errados -->
         <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -217,67 +233,49 @@
         <script>
             $(document).ready(function () {
 
-                $.ajax({
-                    method: "GET",
-                    url: "./backend/get_atividades.php",
-                    dataType: "json",
-                    success: function (response) {
-                        if (response.length > 0) {
-                            response.forEach(function (atividades) {
-                                var atv_titulo = atividades.ATV_TITULO;
-                                var atv_descricao = atividades.ATV_DESCRICAO;
-                                var atv_criacao = atividades.ATV_DT_CRIACAO;
+                function carregarAtividade() {
+                    $.ajax({
+                        method: "GET",
+                        url: "./backend/get_atividades.php",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.length > 0) {
+                                response.forEach(function (atividades) {
+                                    var atv_titulo = atividades.ATV_TITULO;
+                                    var atv_descricao = atividades.ATV_DESCRICAO;
+                                    var atv_criacao = atividades.ATV_DT_CRIACAO;
+                                    var atv_id = atividades.ATV_ID;
 
-                                var cardHTML = "<div class='col-md-4 mb-4' style='padding-top: 10px'>" +
-                                    "<div class='card h-100' style='border-radius: 10px;'>" +
-                                    "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
-                                    "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
-                                    "</div>" +
-                                    "<div class='card-body'>" +
-                                    "<p style='color: rgba(0, 0, 0, 0.466);'>" + atv_criacao + "</p>" +
-                                    "<p class='card-text'>" + atv_descricao + "</p>" +
-                                    "<div class='text-center' style='padding-top: 10px;'>" +
-                                    "<button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>" +
-                                    "<button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>" +
-                                    "<button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>" +
-                                    "</div>" +
-                                    "</div>" +
-                                    "</div>" +
-                                    "</div>";
+                                    var cardHTML = "<div class='col-md-4 mb-4' style='padding-top: 10px'>" +
+                                        "<div class='card h-100' style='border-radius: 10px;'>" +
+                                        "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
+                                        "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
+                                        "</div>" +
+                                        "<div class='card-body'>" +
+                                        "<p style='color: rgba(0, 0, 0, 0.466);'>" + atv_criacao + "</p>" +
+                                        "<p class='card-text'>" + atv_descricao + "</p>" +
+                                        "<div class='text-center' style='padding-top: 30px;'>" +
+                                        "<button class='btn btn-danger deletar' data-id='" + atv_id + "'><i class='ri-close-circle-fill'></i></button>" +
+                                        "<button class='btn btn-success concluido'><i class='ri-checkbox-circle-fill'></i></button>" +
+                                        "<button class='btn btn-primary editar'><i class='ri-edit-circle-fill'></i></button>" +
+                                        "</div>" +
+                                        "</div>" +
+                                        "</div>" +
+                                        "</div>";
 
-                                $("#atividades").append(cardHTML);
-                            });
-                        } else {
-                            console.log("Não há atividades disponível")
+                                    $("#atividades").append(cardHTML);
+                                });
+                            } else {
+                                console.log("Não há atividades disponível")
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Erro ao carregar as atividades: ", error);
                         }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Erro ao carregar as atividades: ", error);
-                    }
-                })
-
-                function adicionarAtividade(atividade) {
-                    var atv_titulo = atividades.ATV_TITULO;
-                    var atv_descricao = atividades.ATV_DESCRICAO;
-                    var atv_criacao = atividades.ATV_DT_CRIACAO;
-
-                    $("#atividades").append("<div class='col-md-4 mb-4'>" +
-                        "<div class='card h-100' style='border-radius: 10px;'>" +
-                        "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
-                        "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
-                        "</div>" +
-                        "<div class='card-body'>" +
-                        "<p style='color: rgba(0, 0, 0, 0.466);'>" + atv_criacao + "</p>" +
-                        "<p class='card-text'>" + atv_descricao + "</p>" +
-                        "<div class='text-center' style='padding-top: 30px;'>" +
-                        "<button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>" +
-                        "<button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>" +
-                        "<button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>" +
-                        "</div>" +
-                        "</div>" +
-                        "</div>" +
-                        "</div>");
+                    })
                 }
+
+                carregarAtividade();
 
                 //clicar no botão de créditos
                 $("#creditos").click(function () {
@@ -310,23 +308,8 @@
                     }).done(function (response) {
                         if (response === "sucesso") {
                             $('#successModal').modal('show');
-
-                            $("#atividades").append("<div class='col-md-4 mb-4'>" +
-                                "<div class='card h-100' style='border-radius: 10px;'>" +
-                                "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
-                                "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + _titulo + "</h4>" +
-                                "</div>" +
-                                "<div class='card-body'>" +
-                                "<p style='color: rgba(0, 0, 0, 0.466);'>" + _criacao + "</p>" +
-                                "<p class='card-text'>" + _descricao + "</p>" +
-                                "<div class='text-center' style='padding-top: 30px;'>" +
-                                "<button class='btn btn-danger'><i class='ri-close-circle-fill'></i></button>" +
-                                "<button class='btn btn-success'><i class='ri-checkbox-circle-fill'></i></button>" +
-                                "<button class='btn btn-primary'><i class='ri-edit-circle-fill'></i></button>" +
-                                "</div>" +
-                                "</div>" +
-                                "</div>" +
-                                "</div>");
+                            $('#atividades').empty();
+                            carregarAtividade();
                         } else {
                             $('#errorModal').modal('show');
                         }
@@ -341,6 +324,27 @@
                     $('#criacao').val('');
                     $('#conclusao').val('');
                 });
+
+                //para deletar os cards
+                $(document).on('click', '.deletar', function () {
+                    var idAtividade = $(this).data('id');
+                    var $button = $(this);
+
+                    $.ajax({
+                        method: "POST",
+                        url: "./backend/remove_atividades.php",
+                        data: { id: idAtividade },
+                        success: function (response) {
+                            $('#removeModal').modal('show');
+                            $('#atividades').empty();
+                            carregarAtividade();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Erro ao excluir a atividade: ", error);
+                        }
+                    })
+                });
+
             })
         </script>
 
