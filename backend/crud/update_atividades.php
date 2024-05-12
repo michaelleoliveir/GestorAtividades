@@ -1,6 +1,6 @@
 <?php
 
-require_once("database.php");
+require_once("../database.php");
 
 echo "Dados recebidos: ";
 var_dump($_POST);

@@ -1,6 +1,6 @@
 <?php
 
-require_once("database.php");
+require_once("../database.php");
 
 $query = "SELECT * FROM tbl_atividade";
 $stmt = $conexao->prepare($query);

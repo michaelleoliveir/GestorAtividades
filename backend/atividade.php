@@ -18,6 +18,12 @@ $conclusao_varchar = date_format($data_conclusao, 'Y-m-d');
 $data_criacao = new DateTime($criacao);
 $criacao_varchar = date_format($data_criacao, 'Y-m-d');
 
+// criando uma verificação nas datas inseridas
+if ($criacao_varchar > $conclusao_varchar) {
+    echo "A data de criação não pode ser posterior à data de conclusão!";
+    return;
+}
+
 //incluindo o arquivo do banco de dados
 require_once("database.php");
 
@@ -29,7 +35,7 @@ try {
 
     $statement->bindParam(':titulo', $titulo);
     $statement->bindParam(':descricao', $descricao);
-    $statement->bindParam(':conclusao', $criacao_varchar);
+    $statement->bindParam(':conclusao', $conclusao_varchar);
     $statement->bindParam(':criacao', $criacao_varchar);
 
     if($statement->execute()) {

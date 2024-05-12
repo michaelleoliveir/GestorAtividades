@@ -280,7 +280,7 @@
                 function carregarAtividade() {
                     $.ajax({
                         method: "GET",
-                        url: "./backend/get_atividades.php",
+                        url: "./backend/crud/get_atividades.php",
                         dataType: "json",
                         success: function (response) {
                             if (response.length > 0) {
@@ -288,6 +288,7 @@
                                     var atv_titulo = atividades.ATV_TITULO;
                                     var atv_descricao = atividades.ATV_DESCRICAO;
                                     var atv_criacao = atividades.ATV_DT_CRIACAO;
+                                    var atv_conclusao = atividades.ATV_DT_CONC;
                                     var atv_id = atividades.ATV_ID;
 
                                     var cardHTML = "<div class='col-md-4 mb-4' style='padding-top: 10px'>" +
@@ -296,11 +297,12 @@
                                         "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
                                         "</div>" +
                                         "<div class='card-body'>" +
-                                        "<p style='color: rgba(0, 0, 0, 0.466);'>" + atv_criacao + "</p>" +
-                                        "<p class='card-text'>" + atv_descricao + "</p>" +
+                                        "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px'>Criado em: " + atv_criacao + "</p>" +
+                                        "<p style='color: rgba(0, 0, 0, 0.466);'>Conclusão em: " + atv_conclusao + "</p>" +
+                                        "<p class='card-text' style='padding-top: 10px'>" + atv_descricao + "</p>" +
                                         "<div class='text-center' style='padding-top: 30px;'>" +
-                                        "<button class='btn btn-danger deletar' data-id='" + atv_id + "'><i class='ri-close-circle-fill'></i></button>" +
-                                        "<button class='btn btn-success concluido'><i class='ri-checkbox-circle-fill'></i></button>" +
+                                        "<button class='btn btn-danger deletar' data-id='" + atv_id + "' style='margin-right: 10px;'><i class='ri-close-circle-fill'></i></button>" +
+                                        "<button class='btn btn-success concluido' style='margin-right: 10px;'><i class='ri-checkbox-circle-fill'></i></button>" +
                                         "<button class='btn btn-primary editar' data-id='" + atv_id + "''><i class='ri-edit-circle-fill'></i></button>" +
                                         "</div>" +
                                         "</div>" +
@@ -377,7 +379,7 @@
 
                     $.ajax({
                         method: "POST",
-                        url: "./backend/remove_atividades.php",
+                        url: "./backend/crud/remove_atividades.php",
                         data: { id: idAtividade },
                         success: function (response) {
                             $('#removeModal').modal('show');
@@ -397,6 +399,23 @@
                     // Armazena o ID da atividade em uma variável
                     idAtividade = $(this).data('id');
                     console.log("ID da atividade: " + idAtividade);
+
+                    $.ajax({
+                        method: "GET",
+                        url: "./backend/id_atividade.php",
+                        data: {
+                            id: idAtividade
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            $("#titulo-novo").val(response.ATV_TITULO);
+                            $("#descricao-novo").val(response.ATV_DESCRICAO);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Erro ao obter os detalhes da atividade: ", error)
+                        }
+                    });
+
                     $('#editarModal').modal('show');
                 });
 
@@ -408,7 +427,7 @@
 
                     $.ajax({
                         method: "POST",
-                        url: "./backend/update_atividades.php",
+                        url: "./backend/crud/update_atividades.php",
                         data: {
                             tituloNovo: _tituloNovo,
                             descricaoNovo: _descricaoNovo,

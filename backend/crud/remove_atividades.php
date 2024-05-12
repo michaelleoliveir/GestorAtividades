@@ -1,6 +1,6 @@
 <?php
 // Incluir o arquivo de configuração com a conexão PDO
-require_once("database.php");
+require_once("../database.php");
 
 // Verificar se o ID da atividade foi enviado
 if(isset($_POST['id'])) {
