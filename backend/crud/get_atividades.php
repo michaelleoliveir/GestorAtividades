@@ -1,8 +1,10 @@
 <?php
 
 require_once("../database.php");
+session_start();
+$id = $_SESSION['usu_id'];
 
-$query = "SELECT * FROM tbl_atividade";
+$query = "SELECT * FROM tbl_atividade where USU_ID = $id";
 $stmt = $conexao->prepare($query);
 $stmt->execute();
 

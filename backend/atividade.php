@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+$id = $_SESSION['usu_id'];
+
 //pegando os dados que foram inseridos
 $titulo = trim($_POST['titulo']);
 $descricao = trim($_POST['descricao']);
@@ -28,7 +31,7 @@ if ($criacao_varchar > $conclusao_varchar) {
 require_once("database.php");
 
 //inserindo dados no banco
-$sql = "INSERT INTO tbl_atividade (ATV_TITULO, ATV_DESCRICAO, ATV_DT_CRIACAO, ATV_DT_CONC) VALUES (:titulo, :descricao, :criacao, :conclusao)";
+$sql = "INSERT INTO tbl_atividade (ATV_TITULO, ATV_DESCRICAO, ATV_DT_CRIACAO, ATV_DT_CONC, USU_ID) VALUES (:titulo, :descricao, :criacao, :conclusao, :id)";
 
 try {
     $statement = $conexao->prepare($sql);
@@ -37,6 +40,7 @@ try {
     $statement->bindParam(':descricao', $descricao);
     $statement->bindParam(':conclusao', $conclusao_varchar);
     $statement->bindParam(':criacao', $criacao_varchar);
+    $statement->bindParam(':id', $id);
 
     if($statement->execute()) {
         echo "sucesso";

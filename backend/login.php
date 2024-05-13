@@ -27,9 +27,7 @@ if ($_POST["operation"] == 'load') {
 
     if ($result->rowCount() > 0) {
         $row = $result->fetch(PDO::FETCH_ASSOC);
-
-        // Salva o ID do usuário na sessão para uso posterior
-        //$_SESSION['usu_id'] = $usu_id;
+        $_SESSION['usu_id'] = $row['USU_ID'];
 
         echo '{ "acesso" : "' . $acesso .
             '", "senha" : "' . $senha .
