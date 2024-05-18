@@ -31,7 +31,7 @@ if ($criacao_varchar > $conclusao_varchar) {
 require_once("database.php");
 
 //inserindo dados no banco
-$sql = "INSERT INTO tbl_atividade (ATV_TITULO, ATV_DESCRICAO, ATV_DT_CRIACAO, ATV_DT_CONC, USU_ID) VALUES (:titulo, :descricao, :criacao, :conclusao, :id)";
+$sql = "INSERT INTO tbl_atividade (ATV_TITULO, ATV_DESCRICAO, ATV_DT_CRIACAO, ATV_DT_CONC, ATV_STATUS, USU_ID) VALUES (:titulo, :descricao, :criacao, :conclusao, '0', :id)";
 
 try {
     $statement = $conexao->prepare($sql);

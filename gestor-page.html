@@ -46,6 +46,16 @@
             }
         });
     </script>
+
+    <style>
+        .conclusao-passada {
+            color: rgba(255, 0, 0, 0.593);
+        }
+
+        .conclusao-outra {
+            color: rgba(0, 0, 0, 0.466);
+        }
+    </style>
 </head>
 
 <body style="font-family: Inter; background-color: #87858ccf;">
@@ -285,32 +295,77 @@
                         success: function (response) {
                             if (response.length > 0) {
                                 response.forEach(function (atividades) {
-                                    var atv_titulo = atividades.ATV_TITULO;
-                                    var atv_descricao = atividades.ATV_DESCRICAO;
-                                    var atv_criacao = atividades.ATV_DT_CRIACAO;
-                                    var atv_conclusao = atividades.ATV_DT_CONC;
-                                    var atv_id = atividades.ATV_ID;
 
-                                    var cardHTML = "<div class='col-md-4 mb-4' style='padding-top: 10px'>" +
-                                        "<div class='card h-100' style='border-radius: 10px;'>" +
-                                        "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
-                                        "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
-                                        "</div>" +
-                                        "<div class='card-body'>" +
-                                        "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px'>Criado em: " + atv_criacao + "</p>" +
-                                        "<p style='color: rgba(0, 0, 0, 0.466);'>Conclusão em: " + atv_conclusao + "</p>" +
-                                        "<p class='card-text' style='padding-top: 10px'>" + atv_descricao + "</p>" +
-                                        "<div class='text-center' style='padding-top: 30px;'>" +
-                                        "<button class='btn btn-danger deletar' data-id='" + atv_id + "' style='margin-right: 10px;'><i class='ri-close-circle-fill'></i></button>" +
-                                        "<button class='btn btn-success concluido' style='margin-right: 10px;'><i class='ri-checkbox-circle-fill'></i></button>" +
-                                        "<button class='btn btn-primary editar' data-id='" + atv_id + "''><i class='ri-edit-circle-fill'></i></button>" +
-                                        "</div>" +
-                                        "</div>" +
-                                        "</div>" +
-                                        "</div>";
+                                    let atv_titulo = atividades.ATV_TITULO;
+                                    let atv_descricao = atividades.ATV_DESCRICAO;
+                                    let atv_criacao = atividades.ATV_DT_CRIACAO;
+                                    let atv_status = atividades.ATV_STATUS;
+                                    let atv_conclusao = atividades.ATV_DT_CONC;
+                                    let atv_id = atividades.ATV_ID;
 
-                                    $("#atividades").append(cardHTML);
+                                    var conclusaoDate = new Date(atv_conclusao);
+                                    var today = new Date();
+
+                                    var conclusaoClass = '';
+                                    if (conclusaoDate < today) {
+                                        conclusaoClass = 'conclusao-passada';
+                                    }
+                                    else {
+                                        conclusaoClass = 'conclusao-outra';
+                                    }
+
+                                    if (atv_status == 0) {
+
+                                        var cardHTML = "<div class='col-md-4 mb-4 cartao' style='padding-top: 10px'>" +
+                                            "<div class='card h-100 d-flex flex-column' style='border-radius: 10px;'>" +
+                                            "<div class='card-header text-center' style='background-color: #0A2647; border-radius: 10px 10px 0px 0px;'>" +
+                                            "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
+                                            "</div>" +
+                                            "<div class='card-body flex-grow-1'>" +
+                                            "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px'>Criado em: " + atv_criacao + "</p>" +
+                                            "<p class='" + conclusaoClass + "'>Conclusão em: " + atv_conclusao + "</p>" +
+                                            "<p class='card-text' style='padding-top: 10px'>" + atv_descricao + "</p>" +
+                                            "</div>" +
+                                            "<div class='card-footer text-center' style='padding-top: 10px; background-color: transparent; border-top: none;'>" +
+                                            "<button class='btn btn-danger deletar' data-id='" + atv_id + "' style='margin-right: 10px;'><i class='ri-close-circle-fill'></i></button>" +
+                                            "<button class='btn btn-success concluido' data-id='" + atv_id + "' style='margin-right: 10px;'><i class='ri-checkbox-circle-fill'></i></button>" +
+                                            "<button class='btn btn-primary editar' data-id='" + atv_id + "'><i class='ri-edit-circle-fill'></i></button>" +
+                                            "</div>" +
+                                            "</div>" +
+                                            "</div>";
+
+                                        $("#atividades").append(cardHTML);
+                                    }
                                 });
+
+                                response.forEach(function (atividades) {
+                                    let atv_titulo = atividades.ATV_TITULO;
+                                    let atv_descricao = atividades.ATV_DESCRICAO;
+                                    let atv_criacao = atividades.ATV_DT_CRIACAO;
+                                    let atv_status = atividades.ATV_STATUS;
+                                    let atv_id = atividades.ATV_ID;
+                                    if (atv_status == 1) {
+
+                                        var cardHTML = "<div class='col-md-4 mb-4 cartao' style='padding-top: 10px'>" +
+                                            "<div class='card h-100 d-flex flex-column' style='border-radius: 10px;'>" +
+                                            "<div class='card-header text-center' style='background-color: #A8DEC0; border-radius: 10px 10px 0px 0px;'>" +
+                                            "<h4 class='m-0' style='color: #1D392A; padding: 5px;'>" + atv_titulo + "</h4>" +
+                                            "</div>" +
+                                            "<div class='card-body flex-grow-1'>" +
+                                            "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px'>Criado em: " + atv_criacao + "</p>" +
+                                            "<p class='card-text' style='padding-top: 10px'>" + atv_descricao + "</p>" +
+                                            "</div>" +
+                                            "<div class='card-footer text-center' style='padding-top: 5px; background-color: transparent; border-top: none;'>" +
+                                            "<button class='btn btn-danger deletar' data-id='" + atv_id + "' style='margin-right: 10px;'><i class='ri-close-circle-fill'></i></button>" +
+                                            "</div>" +
+                                            "</div>" +
+                                            "</div>" +
+                                            "</div>";
+
+                                        $("#atividades").append(cardHTML);
+                                    }
+                                });
+
                             } else {
                                 console.log("Não há atividades disponível")
                             }
@@ -331,6 +386,11 @@
                 //clicar no botão de adicionar nova atividade
                 $("#adicionar").click(function () {
                     $("#atividadesModal").modal('show');
+                });
+
+                $('#atividadesModal').on('show.bs.modal', function () {
+                    var today = new Date().toISOString().split('T')[0];
+                    $('#criacao').val(today);
                 });
 
                 //clicar no botão de criar nova atividade
@@ -356,6 +416,12 @@
                             $('#successModal').modal('show');
                             $('#atividades').empty();
                             carregarAtividade();
+
+                            //LIMPAR OS CAMPOS QUANDO SE CRIA UMA ATIVIDADE NOVA
+                            $('#titulo').val('');
+                            $('#descricao').val('');
+                            $('#criacao').val('');
+                            $('#conclusao').val('');
                         } else {
                             $('#errorModal').modal('show');
                         }
@@ -407,11 +473,11 @@
                             id: idAtividade
                         },
                         dataType: "json",
-                        success: function(response) {
+                        success: function (response) {
                             $("#titulo-novo").val(response.ATV_TITULO);
                             $("#descricao-novo").val(response.ATV_DESCRICAO);
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             console.error("Erro ao obter os detalhes da atividade: ", error)
                         }
                     });
@@ -443,6 +509,31 @@
                         }
                     }).fail(function (xhr, status, error) {
                         $('#errorModal').modal('show');
+                    });
+                });
+
+                //para concluir os cards
+                $(document).on('click', '.concluido', function () {
+                    var idAtividade = $(this).data('id');
+                    console.log("ID da atividade: " + idAtividade);
+
+                    var card = $(this).closest('.cartao');
+
+                    $.ajax({
+                        method: "POST",
+                        url: "./backend/concluir_atividade.php",
+                        data: { id: idAtividade },
+                        success: function (response) {
+                            if (response === "sucesso") {
+                                console.log("status trocado");
+                                card.remove();
+                                $('#atividades').empty();
+                                carregarAtividade();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Erro ao excluir a atividade: ", error);
+                        }
                     });
                 });
 
