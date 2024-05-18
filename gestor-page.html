@@ -149,7 +149,7 @@
                                         style="font-size: 14px; font-weight: 500;">Título</span>
                                 </div>
                                 <input type="text" id="titulo" name="titulo" class="form-control" aria-label="Titulo"
-                                    aria-describedby="inputGroup-sizing-default" required autocomplete="off">
+                                    aria-describedby="inputGroup-sizing-default" required autocomplete="off" style="background-color: white;">
                             </div>
                             <br>
                             <div class="input-group mb-2">
@@ -159,7 +159,7 @@
                                 </div>
                                 <input type="text" id="descricao" name="descricao" class="form-control"
                                     aria-label="Descrição" aria-describedby="inputGroup-sizing-default" required
-                                    autocomplete="off">
+                                    autocomplete="off" style="background-color: white;">
                             </div>
                             <br>
                             <div class="input-group mb-2">
@@ -210,7 +210,7 @@
                                 </div>
                                 <input type="text" id="titulo-novo" name="titulo-novo" class="form-control"
                                     aria-label="Titulo" aria-describedby="inputGroup-sizing-default" required
-                                    autocomplete="off">
+                                    autocomplete="off" style="background-color: white;">
                             </div>
                             <br>
                             <div class="input-group mb-2">
@@ -220,6 +220,16 @@
                                 </div>
                                 <input type="text" id="descricao-novo" name="descricao-novo" class="form-control"
                                     aria-label="Descrição" aria-describedby="inputGroup-sizing-default" required
+                                    autocomplete="off" style="background-color: white;">
+                            </div>
+                            <br>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"
+                                        style="font-size: 14px; font-weight: 500;">Data de conclusão</span>
+                                </div>
+                                <input type="date" id="conclusao-novo" name="conclusao-novo" class="form-control"
+                                    aria-label="Conclusão" aria-describedby="inputGroup-sizing-default" required
                                     autocomplete="off">
                             </div>
                             <br>
@@ -476,6 +486,7 @@
                         success: function (response) {
                             $("#titulo-novo").val(response.ATV_TITULO);
                             $("#descricao-novo").val(response.ATV_DESCRICAO);
+                            $("#conclusao-novo").val(response.ATV_DT_CONC);
                         },
                         error: function (xhr, status, error) {
                             console.error("Erro ao obter os detalhes da atividade: ", error)
@@ -490,6 +501,7 @@
 
                     var _tituloNovo = $("#titulo-novo").val();
                     var _descricaoNovo = $("#descricao-novo").val();
+                    var _conclusaoNovo = $("#conclusao-novo").val();
 
                     $.ajax({
                         method: "POST",
@@ -497,6 +509,7 @@
                         data: {
                             tituloNovo: _tituloNovo,
                             descricaoNovo: _descricaoNovo,
+                            conclusaoNovo: _conclusaoNovo,
                             id: idAtividade
                         },
                     }).done(function (response) {
