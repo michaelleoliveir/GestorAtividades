@@ -66,7 +66,7 @@ $(document).ready(function () {
                                 "<h4 class='m-0' style='color: #1D392A; padding: 5px;'>" + atv_titulo + "</h4>" +
                                 "</div>" +
                                 "<div class='card-body flex-grow-1'>" +
-                                "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px'>Criado em: " + atv_criacao + "</p>" +
+                                "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px'>Criado em: " + formatarData(atv_criacao) + "</p>" +
                                 "<p class='card-text' style='padding-top: 10px'>" + atv_descricao + "</p>" +
                                 "</div>" +
                                 "<div class='card-footer text-center' style='padding-top: 5px; background-color: transparent; border-top: none;'>" +
