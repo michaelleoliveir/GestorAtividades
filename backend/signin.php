@@ -13,6 +13,9 @@ if (empty($nome) || empty($sobrenome) || empty($nascimento) || empty($senha) || 
     return;
 }
 
+// Hash da senha
+$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
 //incluindo arquivo de configuração do banco de dados
 require_once("database.php");
 
@@ -25,7 +28,7 @@ try {
     $statement->bindParam(':sobrenome', $sobrenome);
     $statement->bindParam(':nascimento', $nascimento);
     $statement->bindParam(':acesso', $acesso);
-    $statement->bindParam(':senha', $senha);
+    $statement->bindParam(':senha', $senhaHash); // Usando a senha hasheada
     
     if ($statement->execute()) {
         echo "sucesso";

@@ -32,6 +32,9 @@ form [type="email"]{
 form [type="text"]{
     background-color: #D9D9D9;
 }
+form [type="date"]{
+    background-color: #D9D9D9;
+}
 
 form [type="datetime"]{
     background-color: #D9D9D9;
