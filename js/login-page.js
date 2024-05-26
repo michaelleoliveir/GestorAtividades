@@ -42,7 +42,7 @@ $(document).ready(function () {
       var obj = $.parseJSON(resposta);
 
       if (obj.status == "logado") {
-        window.location.href = "gestor-page.php";
+        window.location.href = "gestor-page.html";
       } else {
         window.location.href = "login-page.html";
       }
