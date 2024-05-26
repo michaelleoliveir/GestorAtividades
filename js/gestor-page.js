@@ -36,8 +36,8 @@ $(document).ready(function () {
                                 "<h4 class='m-0' style='color: aliceblue; padding: 5px;'>" + atv_titulo + "</h4>" +
                                 "</div>" +
                                 "<div class='card-body flex-grow-1'>" +
-                                "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px; font-size: 12px'>Criado em: " + formatarData(atv_criacao) + "</p>" +
-                                "<p class='card-text' style='padding-top: 10px; font-size: 18px'>" + atv_descricao + "</p>" +
+                                "<p style='color: rgba(0, 0, 0, 0.333); margin: 0px; font-size: 12px'>Criado em: " + formatarData(atv_criacao) + "</p>" +
+                                "<p class='card-text' style='padding-top: 10px; font-size: 16px'>" + atv_descricao + "</p>" +
                                 "<p style='font-size: 14px; text-align: right;' class='" + conclusaoClass + "'>Conclusão: " + formatarData(atv_conclusao) + "</p>" +
                                 "</div>" +
                                 "<div class='card-footer text-center' style='padding-top: 10px; background-color: transparent; border-top: none;'>" +
@@ -67,7 +67,7 @@ $(document).ready(function () {
                                 "</div>" +
                                 "<div class='card-body flex-grow-1'>" +
                                 "<p style='color: rgba(0, 0, 0, 0.466); margin: 0px'>Criado em: " + formatarData(atv_criacao) + "</p>" +
-                                "<p class='card-text' style='padding-top: 10px'>" + atv_descricao + "</p>" +
+                                "<p class='card-text' style='padding-top: 10px; font-size: 16px'>" + atv_descricao + "</p>" +
                                 "</div>" +
                                 "<div class='card-footer text-center' style='padding-top: 5px; background-color: transparent; border-top: none;'>" +
                                 "<button class='btn btn-danger deletar' data-id='" + atv_id + "' style='margin-right: 10px;'><i class='ri-close-circle-fill'></i></button>" +
